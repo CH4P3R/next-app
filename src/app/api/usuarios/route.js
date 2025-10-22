@@ -1,6 +1,20 @@
-import prisma from '@/lib/prisma';
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 
-export async function GET() {
-  const usuarios = await prisma.usuarios.findMany();
-  return Response.json(usuarios);
+export async function POST(request) {
+  try{
+    const body = await request.json();
+    await prisma.usuario.create(
+        {
+            data: {
+                nombre: body.nombre,
+                correo: body.correo,
+                contrasenia: body.contrasenia
+            }
+        }
+    )
+    return new Response(JSON.stringify({ message: "Éxito registrando el usuario" }),{ status: 200 });
+  }catch(error){
+    return new Response(JSON.stringify({message: "Error al registrar el usuario" }), { status: 500})
+  }
 }
