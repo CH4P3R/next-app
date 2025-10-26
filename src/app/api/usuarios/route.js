@@ -4,6 +4,16 @@ const prisma = new PrismaClient();
 export async function POST(request) {
   try{
     const body = await request.json();
+    const respuesta = await prisma.usuario.findUnique(
+      {
+        where : {
+          correo: body.correo
+        }
+      }
+    )
+    if(respuesta){
+      return new Response(JSON.stringify({ existe: true }),{ status: 200 });
+    }
     await prisma.usuario.create(
         {
             data: {
