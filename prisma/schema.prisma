@@ -13,7 +13,6 @@ model categoria {
   descripcion String
   productos producto[]
 }
-
 model producto {
   id Int @id @default(autoincrement())
   id_categoria Int
@@ -24,23 +23,22 @@ model producto {
   categoria categoria @relation(fields: [id_categoria], references: [id], onDelete: Cascade, onUpdate: Cascade)
   detalles venta_detalles[]
 }
-
 model rol {
   id Int @id @default(autoincrement())
   nombre String @unique
   rol usuario[]
 }
-
 model usuario {
   id Int @id @default(autoincrement())
   id_rol Int @default(1)
   nombre String
   correo String @unique
   contrasenia String
+  fecha_nacimiento DateTime
+  genero String
   rol rol @relation(fields: [id_rol], references: [id], onDelete: Cascade, onUpdate: Cascade)
   ventas venta[]
 }
-
 model venta {
   id Int @id @default(autoincrement())
   id_vendedor Int
@@ -49,7 +47,6 @@ model venta {
   usuario usuario @relation(fields: [id_vendedor], references: [id])
   detalles venta_detalles[]
 }
-
 model venta_detalles {
   id Int @id @default(autoincrement())
   id_venta Int

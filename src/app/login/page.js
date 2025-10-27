@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from "react"
 import { useRouter} from "next/navigation"
-import Registro from "@/components/Registro"
+import Registro from "@/components/locale/Registro"
 import { useApi } from "@/hooks/useApi"
 export default function Login() {
   const [ modalRegistroAbierto, setModalRegistroAbierto] = useState(false)
